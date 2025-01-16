@@ -21,8 +21,10 @@ function createCard({ name, link }, deleteCallback) {
 
 // Функция для удаления карточки
 function deleteCard(event) {
- const card = event.target.parentElement;
- card.remove();
+  const card = event.target.closest(".places__item");
+  if (card) {
+    card.remove();
+  }
 }
 
 // Получаем элемент списка для вставки карточек
