@@ -26,6 +26,79 @@
   transition: opacity 0.3s ease-in-out, visibility 0s 0.3s;
 }
 
+.popup__input-error {
+  display: block; /* Используем block или inline-block */
+  visibility: hidden; /* Скрываем элемент по умолчанию */
+  height: 20px; /* Зарезервируем место для сообщения */
+  color: #FF0000; /* Цвет текста ошибки */
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.popup__input-error_visible {
+  visibility: visible; /* Показываем сообщение, если оно есть */
+}
+
+.popup__save-button_disabled {
+  background-color: #FFFFFF; /* Цвет неактивной кнопки из макета */
+  cursor: not-allowed;
+  color: #C4C4C4; /* Цвет текста неактивной кнопки */
+  border: 1px solid #C4C4C4; /* Цвет обводки такой же, как и цвет текста */
+}
+
+.popup__button_active {
+  background-color: #000; /* Цвет активной кнопки */
+  color: white;
+  cursor: pointer;
+}
 
 
 
+
+
+
+
+
+
+Стили для попапа подтверждения
+.popup_type_confirm {
+  display: none; /* Скрыт по умолчанию */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+  justify-content: center;
+  align-items: center;
+}
+
+.popup_type_confirm.popup_is-opened {
+  display: flex; /* Показывается при открытии */
+}
+
+.popup_type_confirm .popup__content {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  text-align: center;
+  width: 400px;
+}
+
+/* .popup_type_confirm .popup__title {
+  font-size: 24px;
+  margin-bottom: 20px;
+} */
+
+/* .popup_type_confirm .popup__button {
+  padding: 10px 20px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+} */
+
+/* .popup_type_confirm .popup__button:hover {
+  background-color: #e63939;
+} */

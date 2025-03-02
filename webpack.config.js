@@ -8,19 +8,20 @@ module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
 
   return {
-    entry: './src/scripts/index.js',
+    entry: './src/scripts/index.js', // Точка входа
     output: {
-      path: path.resolve(__dirname, 'dist'),
-      filename: 'bundle.[contenthash].js',
-      publicPath: '/', // ✅ Исправлено
+      path: path.resolve(__dirname, 'dist'), // Выходная директория
+      filename: 'bundle.[contenthash].js', // Имя выходного файла
+      publicPath: '/', // Базовый путь для всех ресурсов
+      clean: true, // Очистка директории dist перед сборкой
     },
     devServer: {
       static: {
-        directory: path.join(__dirname, 'dist'),
+        directory: path.join(__dirname, 'dist'), // Директория для dev-server
       },
-      watchFiles: ['src/**/*.html'],
-      hot: true,
-      open: true,
+      watchFiles: ['src/**/*.html'], // Слежение за изменениями в HTML
+      hot: true, // Горячая замена модулей
+      open: true, // Автоматическое открытие браузера
     },
     module: {
       rules: [
@@ -53,7 +54,7 @@ module.exports = (env, argv) => {
           test: /\.(png|svg|jpg|jpeg|gif)$/i,
           type: 'asset/resource',
           generator: {
-            filename: 'images/[hash][ext]', // ✅ Убрали publicPath
+            filename: 'images/[hash][ext]',
           },
         },
         {
@@ -67,25 +68,26 @@ module.exports = (env, argv) => {
           test: /\.html$/i,
           loader: 'html-loader',
           options: {
-            esModule: false, // ✅ Теперь Webpack понимает require() в HTML
+            esModule: false,
           },
         },
       ],
     },
     plugins: [
-      new CleanWebpackPlugin(),
+      new CleanWebpackPlugin(), // Очистка директории dist перед сборкой
       new HtmlWebpackPlugin({
-        template: './src/index.html',
-        filename: 'index.html',
+        template: './src/index.html', // Шаблон HTML
+        filename: 'index.html', // Имя выходного файла
+        inject: 'body', // Подключение скриптов в <body>
+        scriptLoading: 'blocking', // Режим загрузки скриптов
       }),
       new MiniCssExtractPlugin({
-        filename: 'styles.[contenthash].css',
+        filename: 'styles.[contenthash].css', // Имя выходного CSS-файла
       }),
     ],
     optimization: {
-      minimizer: [new CssMinimizerPlugin()],
+      minimizer: [new CssMinimizerPlugin()], // Минификация CSS
     },
-    devtool: isProduction ? false : 'source-map',
+    devtool: isProduction ? false : 'source-map', // Source maps только в режиме разработки
   };
 };
-
