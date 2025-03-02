@@ -11,3 +11,5 @@ Mesto - это интерактивная страница, куда можно 
 Проект размещен на GitHub Pages и доступен по следующей ссылке:
 
 [https://achepin.github.io/mesto-project-ff](https://achepin.github.io/mesto-project-ff)
+
+[https://achepin.github.io/mesto-project-ff] (https://achepin.github.io/mesto-project-ff)
