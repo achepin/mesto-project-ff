@@ -12,7 +12,7 @@ module.exports = (env, argv) => {
     output: {
       path: path.resolve(__dirname, 'dist'), // Выходная директория
       filename: 'bundle.[contenthash].js', // Имя выходного файла
-      publicPath: '/', // Базовый путь для всех ресурсов
+      publicPath: isProduction ? './' : '/', // Разные пути для dev и prod
       clean: true, // Очистка директории dist перед сборкой
     },
     devServer: {
