@@ -1,7 +1,4 @@
-import { deleteCardFromServer, likeCard, unlikeCard } from './api.js';
-import { openModal } from './modal.js';
-
-export function createCard(cardData, userId, openImagePopup) {
+export function createCard(cardData, userId, openImagePopup, handleLike, handleDelete) {
   // Клонируем шаблон карточки
   const cardElement = document
     .querySelector('#card-template')
@@ -34,40 +31,15 @@ export function createCard(cardData, userId, openImagePopup) {
 
   // Обработчик удаления карточки
   cardDeleteButton.addEventListener('click', () => {
-    // Сохраняем ID карточки для последующего удаления
-    window.cardToDeleteId = cardData._id;
-
-    // Открываем попап подтверждения
-    openModal(document.querySelector('.popup_type_confirm'));
+    handleDelete(cardData._id);
   });
-
-  // Функция для обновления состояния лайка
-  function updateLikeState(updatedCard) {
-    cardLikeButton.classList.toggle('card__like-button_is-active');
-    cardLikeCount.textContent = updatedCard.likes.length;
-  }
 
   // Обработчик лайка карточки
   cardLikeButton.addEventListener('click', () => {
-    if (cardLikeButton.classList.contains('card__like-button_is-active')) {
-      // Убираем лайк
-      unlikeCard(cardData._id)
-        .then((updatedCard) => {
-          updateLikeState(updatedCard);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } else {
-      // Ставим лайк
-      likeCard(cardData._id)
-        .then((updatedCard) => {
-          updateLikeState(updatedCard);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
+    handleLike(cardData, cardLikeButton, (updatedCard) => {
+      cardLikeCount.textContent = updatedCard.likes.length;
+      cardLikeButton.classList.toggle('card__like-button_is-active');
+    });
   });
 
   // Обработчик открытия изображения
